@@ -28,6 +28,8 @@ for my $tagdir (io->dir("$yaml_test_suite/tags")->all) {
     }
 }
 
+my $sheet_dir = "matrix/sheet";
+
 $ENV{YAML_PP_RESERVED_DIRECTIVE} = 'ignore';
 my $ypp = YAML::PP->new(
     boolean => 'JSON::PP',
@@ -76,7 +78,7 @@ sub generate_valid {
         json_data => $json_data_string,
     );
     my $out = $htc->output;
-    io->file("sheet/valid.html")->encoding('utf-8')->print($out);
+    io->file("$sheet_dir/valid.html")->encoding('utf-8')->print($out);
 
 
     my $data_js = <<"EOM";
@@ -86,7 +88,7 @@ var tags = data.tags;
 var tags_search = {};
 var testcount = Object.keys(alltests).length;
 EOM
-    io->file("sheet/js/data.js")->encoding('utf-8')->print($data_js);
+    io->file("$sheet_dir/js/data.js")->encoding('utf-8')->print($data_js);
 
 }
 
